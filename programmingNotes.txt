@@ -1,0 +1,13 @@
+    Pushing, Pulling, Inserting, Removing from lists etc.
+    
+    -- 19.2 – Insert and Remove
+    -- The table library provides functions to insert and to remove elements from arbitrary positions of a list. The table.insert function inserts an element in a given position of an array, moving up other elements to open space. Moreover, insert increments the size of the array (using setn). For instance, if a is the array {10, 20, 30}, after the call table.insert(a, 1, 15) a will be {15, 10, 20, 30}. As a special (and frequent) case, if we call insert without a position, it inserts the element in the last position of the array (and, therefore, moves no elements). As an example, the following code reads the program input line by line, storing all lines in an array:
+    
+    --     a = {}
+    --     for line in io.lines() do
+    --       table.insert(a, line)
+    --     end
+    --     print(table.getn(a))         --> (number of lines read)
+    -- The table.remove function removes (and returns) an element from a given position in an array, moving down other elements to close space and decrementing the size of the array. When called without a position, it removes the last element of the array.
+    
+    -- With those two functions, it is straightforward to implement stacks, queues, and double queues. We can initialize such structures as a = {}. A push operation is equivalent to table.insert(a, x); a pop operation is equivalent to table.remove(a). To insert at the other end of the structure we use table.insert(a, 1, x); to remove from that end we use table.remove(a, 1). The last two operations are not particularly efficient, as they must move elements up and down. However, because the table library implements these functions in C, these loops are not too expensive and this implementation is good enough for small arrays (up to some hundred elements, say).
