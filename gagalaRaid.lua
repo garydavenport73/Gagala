@@ -10,10 +10,13 @@ function gagalaRaid(dt)
                 if customObject.inFlight == false then
                     print("not in flight")
                     if customObject.flightFinished == false then
-                        print("flight not finished")
-                        print('launch!!!!!!!!!!!!!!!!!!!!!!')
-                        -- customObject.yVel = 3
-                        singleAlienLaunch(customObject)
+                        if customObject.reBasing == false then
+                           
+                            print('launch!!!!!!!!!!!!!!!!!!!!!!')
+                            -- customObject.yVel = 3
+                            singleAlienLaunch(customObject)  
+                        end
+
                     end
                 end
             end
@@ -39,7 +42,7 @@ function upDateGagalaAliensTrajectories()
     local newXVel = 0
     for index, customObject in pairs(customObjects) do
         if customObject.customObjectType == "bigAlien" then
-            if customObject.inFlight == true then
+            if customObject.inFlight == true and customObject.reBasing == false then
                 currentX = customObject.x
                 newXVel = customObject.xVel + math.random(-1, 1) /
                               math.random(2, 5)
@@ -53,15 +56,34 @@ function upDateGagalaAliensTrajectories()
                 end
                 if customObject.y > love.graphics.getHeight() then
                     customObject.inFlight = false
-                    customObject.flightFinished = true
-                    customObject.x = -999
-                    customObject.y = -999
+                    -- customObject.flightFinished = true
+                    customObject.reBasing = true
+                    -- customObject.x = -999
+                    customObject.y = 0
                     -- customObject.x = customObject.originalXSpawn
                     -- customObject.y = customObject.originalYSpawn
-                    customObject.xVel = 0
-                    customObject.yVel = 0
+                    -- customObject.xVel = 0
+                    -- customObject.yVel = 0
                 end
+
+
             end
+        end
+        if customObject.reBasing == true then
+            if customObject.x - customObject.originalXSpawn < 5 then
+                customObject.x = customObject.originalXSpawn
+                customObject.y = customObject.originalYSpawn
+                customObject.reBasing = false
+                customObject.flightFinished = true
+            else
+                customObject.x = customObject.x +
+                                     (customObject.originalXSpawn -
+                                         customObject.x) / 10
+                customObject.x = customObject.x +
+                                     (customObject.originalXSpawn -
+                                         customObject.x) / 10
+            end
+
         end
     end
 
@@ -76,7 +98,7 @@ end
 function _resetAliens()
     for index, customObject in pairs(customObjects) do
         if customObject.customObjectType == "bigAlien" then
-            customObject.flightFinished=false
+            customObject.flightFinished = false
             customObject.x = customObject.originalXSpawn
             customObject.y = customObject.originalYSpawn
         end

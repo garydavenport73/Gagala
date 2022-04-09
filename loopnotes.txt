@@ -1,0 +1,70 @@
+waiting
+
+flying
+
+rebasing
+
+
+
+loop through all aliens
+    if alien is waiting, no flying, not rebasing
+        check for random
+            launch
+            waiting false
+            flying true
+            rebasing false
+
+    if alien is flying
+        fly
+            flying true
+            rebasing false
+            waiting false
+
+    if alien rebasing
+        flying false
+        rebase true
+        waiting false
+        if rebasing done
+            flying false
+            rebase false
+            waiting false
+
+
+    if flight height > 0
+        flying false
+        rebasing true
+        waiting false
+
+    if all flying false, rebasing false, waiting = false
+        set all to waiting
+
+
+
+
+if all waiting (not flying not rebasing)
+
+    launch randomly
+        
+        flying true
+        rebasing false
+        waiting false
+
+
+if flying
+    do fly animation
+
+
+if rebasing, do rebasing animation
+
+
+if all 
+
+
+
+sticker price
+
+17000 18000
+
+
+
+

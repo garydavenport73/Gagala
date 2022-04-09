@@ -1,0 +1,17 @@
+{
+    "Lua.diagnostics.globals": [
+        "love",
+        "upDateGagalaAliensTrajectories",
+        "gagalaRaid2",
+        "allWaiting",
+        "loadAliens",
+        "readyForLaunch",
+        "customObjects",
+        "gameLevel",
+        "removeGarbageFromList",
+        "showCustomObjects",
+        "clearCustomObjectsIfOffScreen",
+        "drawCustomObjects",
+        "updateCustomObjects"
+    ]
+}

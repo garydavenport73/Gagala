@@ -21,8 +21,9 @@ function CustomObject:Create(spawn_x, spawn_y, def, xVel, yVel)
         customObjectType = def.type or 'notypedesignated',
         originalXSpawn = spawn_x or 0,
         originalYSpawn = spawn_y or 0,
-        inFlight=false,
-        flightFinished = false,
+        flying=false,
+        rebasing = false,
+        waiting = true
     }
 
     -- Set up animations
