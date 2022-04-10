@@ -1,11 +1,25 @@
+aliens = {
+    bigAlienDef = {
+        w = 32,
+        h = 32,
+        image = 'assets/graphics/enemy-big.png',
+        frames = {'1-2', 1},
+        durations = 0.1,
+        type = 'bigAlien',
+        scaleFactor = 2,
+        sx = 2,
+        sy = 2
+    }
+}
+
 function loadAliens(level, formation)
 
     for index, alien in pairs(customObjects) do
-        if alien.customObjectType == 'bigAlien' then alien._garbage =true  end
+        if alien.customObjectType == 'bigAlien' then alien.garbage = true end
     end
-    --customObjects = {}
-    removeGarbageFromList()
-    formation = formation or "sformation"
+    -- customObjects = {}
+    removeGarbage()
+    formation = formation or "circle"
     print("starting level", level)
     if formation == 'rectangle' then
         local numberOfColumns = 8
@@ -15,11 +29,21 @@ function loadAliens(level, formation)
         local margin = widthDifference / 2
         for i = 1, 3, 1 do
             for j = 1, numberOfColumns, 1 do
-                CustomObject:Create((j - 1) * aliens.bigAlienDef.scaleFactor *
-                                        aliens.bigAlienDef.w + margin, i *
-                                        aliens.bigAlienDef.scaleFactor *
-                                        aliens.bigAlienDef.h,
-                                    aliens.bigAlienDef, 0, 0)
+                local tempObject = CustomObject:Create((j - 1) *
+                                                           aliens.bigAlienDef
+                                                               .scaleFactor *
+                                                           aliens.bigAlienDef.w +
+                                                           margin, i *
+                                                           aliens.bigAlienDef
+                                                               .scaleFactor *
+                                                           aliens.bigAlienDef.h,
+                                                       aliens.bigAlienDef, 0, 0)
+                tempObject["flying"] = false -- adding these new custom properties
+                tempObject["rebasing"] = false --
+                tempObject["waiting"] = true --
+                tempObject["originalXSpawn"] = tempObject.x
+                tempObject["originalYSpawn"] = tempObject.y
+
             end
         end
 
@@ -28,13 +52,24 @@ function loadAliens(level, formation)
         for i = 1, 24, 1 do
             local radius = 0.25 * love.graphics.getWidth()
             local centerX = love.graphics.getWidth() / 2 - aliens.bigAlienDef.w
+            print(aliens.bigAlienDef.w)
             -- local centerY = love.graphics.getWidth()-aliens.bigAlienDef.w
 
             print('radius', radius)
 
-            CustomObject:Create(radius * math.sin(i * 15 / 57.3) + centerX,
-                                radius * math.cos(i * 15 / 57.3) + radius,
-                                aliens.bigAlienDef, 0, 0)
+            local tempObject = CustomObject:Create(radius *
+                                                       math.sin(i * 15 / 57.3) +
+                                                       centerX, radius *
+                                                       math.cos(i * 15 / 57.3) +
+                                                       radius,
+                                                   aliens.bigAlienDef, 0, 0)
+
+            tempObject["flying"] = false -- adding these new custom properties
+            tempObject["rebasing"] = false --
+            tempObject["waiting"] = true --
+            tempObject["originalXSpawn"] = tempObject.x
+            tempObject["originalYSpawn"] = tempObject.y
+
         end
 
     elseif formation == 'weirdformation' then
@@ -46,9 +81,17 @@ function loadAliens(level, formation)
 
             print('radius', radius)
 
-            CustomObject:Create(radius * math.sin(i * 15 / 57.3) + centerX,
-                                radius * math.cos(i * 20 / 57.3) + radius,
-                                aliens.bigAlienDef, 0, 0)
+            local tempObject = CustomObject:Create(radius *
+                                                       math.sin(i * 15 / 57.3) +
+                                                       centerX, radius *
+                                                       math.cos(i * 20 / 57.3) +
+                                                       radius,
+                                                   aliens.bigAlienDef, 0, 0)
+            tempObject["flying"] = false -- adding these new custom properties
+            tempObject["rebasing"] = false --
+            tempObject["waiting"] = true --
+            tempObject["originalXSpawn"] = tempObject.x
+            tempObject["originalYSpawn"] = tempObject.y
         end
 
     elseif formation == 'sformation' then
@@ -60,9 +103,17 @@ function loadAliens(level, formation)
 
             print('radius', radius)
 
-            CustomObject:Create(radius * math.sin(i * 20 / 57.3) + centerX,
-                                radius * math.cos(i * 10 / 57.3) + radius,
-                                aliens.bigAlienDef, 0, 0)
+            local tempObject = CustomObject:Create(radius *
+                                                       math.sin(i * 20 / 57.3) +
+                                                       centerX, radius *
+                                                       math.cos(i * 10 / 57.3) +
+                                                       radius,
+                                                   aliens.bigAlienDef, 0, 0)
+            tempObject["flying"] = false -- adding these new custom properties
+            tempObject["rebasing"] = false --
+            tempObject["waiting"] = true --
+            tempObject["originalXSpawn"] = tempObject.x
+            tempObject["originalYSpawn"] = tempObject.y
         end
 
     end
@@ -173,8 +224,7 @@ function upDateGagalaAliensTrajectories()
                 alien.flying = false
                 alien.rebasing = true
                 alien.waiting = false
-                --alien._garbage = true
-
+                -- alien._garbage = true
 
                 alien.y = 0
                 alien.x = love.graphics.getWidth()
@@ -208,9 +258,6 @@ function upDateGagalaAliensTrajectories()
         end
 
     end
-
-    removeGarbageFromList()
-
 end
 
 function readyForLaunch()
@@ -228,4 +275,3 @@ function readyForLaunch()
     end
     return ready
 end
-

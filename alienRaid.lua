@@ -12,17 +12,17 @@ function alienRaid(minSpeed, maxSpeed, xDev, spawnFrequencyInFrames)
     local speed = math.random(minSpeed, maxSpeed)            -- random y velocity
     local randomX = math.random(0, love.graphics.getWidth())   --random starting x position
     alienCounter = alienCounter + 1
-    if alienCounter % 300 == 0 then                           --resetting every 300 frames
-        alienCounter = 0
-    end
-    if alienCounter % spawnFrequencyInFrames == 0 then        --spawn a new alien every so many frames
+    if alienCounter == spawnFrequencyInFrames then        --spawn a new alien every so many frames
         local temp = CustomObject:Create(randomX, -32, bigAlienDef, xVel, speed) --create an object
         temp:changeScaleFactor(2 * math.random() + 1)         --change alien size randomly
         temp:setType('alien')
+        alienCounter = 0
+    end
+    for index, object in ipairs(customObjects) do
+        if object.customObjectType=="alien" then
+            if objectOffScreen(object) then
+                object.garbage = true
+            end
+        end
     end
 end
-
-function upDateAlienTrajectory(dt)
-    
-end
-

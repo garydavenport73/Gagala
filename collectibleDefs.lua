@@ -1,19 +1,3 @@
-function createCollectible(x, y, _type)
-    local collectibleDef = {}
-
-    if _type == 'shield' then
-        collectibleDef = gCollectibles.shield
-    elseif _type == 'health' then
-        collectibleDef = gCollectibles.health
-    else
-        collectibleDef = gCollectibles.homing
-    end
-
-    local collectible = CustomObject:Create(x, y, collectibleDef)
-    
-    return collectible
-end
-
 gCollectibles = {
     shield = {
         w = 16,
