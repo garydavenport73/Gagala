@@ -19,6 +19,7 @@
         "aliens",
         "loadAliens",
         "readyForLaunch",
-        "upDateGagalaAliensTrajectories"
+        "upDateGagalaAliensTrajectories",
+        "collisionDetect"
     ]
 }

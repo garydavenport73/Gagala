@@ -16,6 +16,8 @@ function Ship:Create(spawn_x, spawn_y, def)
         weapon = {nil, nil},
         weaponInd = 1,
         shield = nil,
+        sx = def.sx or 3,
+        sy = def.sy or 3
     }
 
     -- Set up weapon 1 (never changes)
@@ -87,7 +89,7 @@ end
 
 function Ship:draw()
     -- draw the animation in the ship's x/y coordinate
-    self.anim:draw(self.image, self.x, self.y, 0, 3, 3)
+    self.anim:draw(self.image, self.x, self.y, 0, self.sx, self.sy)
 end
 
 -- Returns a value contained between 

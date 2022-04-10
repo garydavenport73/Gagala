@@ -52,10 +52,10 @@ function loadAliens(level, formation)
         for i = 1, 24, 1 do
             local radius = 0.25 * love.graphics.getWidth()
             local centerX = love.graphics.getWidth() / 2 - aliens.bigAlienDef.w
-            print(aliens.bigAlienDef.w)
+
             -- local centerY = love.graphics.getWidth()-aliens.bigAlienDef.w
 
-            print('radius', radius)
+            --print('radius', radius)
 
             local tempObject = CustomObject:Create(radius *
                                                        math.sin(i * 15 / 57.3) +
@@ -79,7 +79,7 @@ function loadAliens(level, formation)
             local centerX = love.graphics.getWidth() / 2 - aliens.bigAlienDef.w
             -- local centerY = love.graphics.getWidth()-aliens.bigAlienDef.w
 
-            print('radius', radius)
+            --print('radius', radius)
 
             local tempObject = CustomObject:Create(radius *
                                                        math.sin(i * 15 / 57.3) +
@@ -101,7 +101,7 @@ function loadAliens(level, formation)
             local centerX = love.graphics.getWidth() / 2 - aliens.bigAlienDef.w
             -- local centerY = love.graphics.getWidth()-aliens.bigAlienDef.w
 
-            print('radius', radius)
+            --print('radius', radius)
 
             local tempObject = CustomObject:Create(radius *
                                                        math.sin(i * 20 / 57.3) +
