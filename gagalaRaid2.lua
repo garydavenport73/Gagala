@@ -55,7 +55,7 @@ function loadAliens(level, formation)
 
             -- local centerY = love.graphics.getWidth()-aliens.bigAlienDef.w
 
-            --print('radius', radius)
+            -- print('radius', radius)
 
             local tempObject = CustomObject:Create(radius *
                                                        math.sin(i * 15 / 57.3) +
@@ -79,7 +79,7 @@ function loadAliens(level, formation)
             local centerX = love.graphics.getWidth() / 2 - aliens.bigAlienDef.w
             -- local centerY = love.graphics.getWidth()-aliens.bigAlienDef.w
 
-            --print('radius', radius)
+            -- print('radius', radius)
 
             local tempObject = CustomObject:Create(radius *
                                                        math.sin(i * 15 / 57.3) +
@@ -101,7 +101,7 @@ function loadAliens(level, formation)
             local centerX = love.graphics.getWidth() / 2 - aliens.bigAlienDef.w
             -- local centerY = love.graphics.getWidth()-aliens.bigAlienDef.w
 
-            --print('radius', radius)
+            -- print('radius', radius)
 
             local tempObject = CustomObject:Create(radius *
                                                        math.sin(i * 20 / 57.3) +
@@ -134,7 +134,6 @@ function loadAliens(level, formation)
 end
 
 function upDateGagalaAliensTrajectories()
-    -- loop through all aliens
     for index, alien in pairs(customObjects) do
         if alien.customObjectType == 'bigAlien' then
 
@@ -143,12 +142,13 @@ function upDateGagalaAliensTrajectories()
                 -- if alien is waiting, no flying, not rebasing
                 if math.random(1, 1000) < 10 then
                     xDev = math.random(-2, 2)
-                    ySpeed = math.random(1, 5)
-                    alien.xVel = xDev + math.random(-1, 1)
+                    ySpeed = math.random(1+level, level)
+                    alien.xVel = xDev + math.random(-level, level)
                     alien.yVel = ySpeed
                     alien.flying = true
                     alien.waiting = false
                     alien.rebasing = false
+                    centerMessage=""
                 end
 
                 --     check for random
@@ -171,6 +171,11 @@ function upDateGagalaAliensTrajectories()
                 else
                     alien.xVel = newXVel
                 end
+
+                if waitingForShipRegeneration ==true then
+                    alien.yVel=alien.yVel+1
+                end
+                
 
                 -- if alien is flying
                 --     fly
@@ -248,6 +253,7 @@ function upDateGagalaAliensTrajectories()
         -- if gameLevel==4 then levelType = "sformation" end
 
         -- loadAliens(gameLevel,levelType)
+        shipLaunchable = true
 
         for index, alien in pairs(customObjects) do
             alien.flying = false
@@ -256,8 +262,30 @@ function upDateGagalaAliensTrajectories()
             -- alien.x = alien.originalXSpawn --needs fixed, this is a temp fix, last alien not placed before relaunch
             -- alien.y = alien.originalYSpawn --needs fixed, same
         end
+        if numberOfAliens() == 0 and lives > 0 then
+            local levelDescriptions={}
+            levelDescriptions[1]="circle"
+            levelDescriptions[2]="rectangle"
+            levelDescriptions[3]="weirdformation"
+            levelDescriptions[4]="sformation"
+            level = level + 1
+            loadAliens(level, levelDescriptions[math.random(1,4)])
+            centerMessage="LEVEL"..level
+            shipHit=false
+        end
 
     end
+end
+
+function numberOfAliens()
+    local howManyAliens = 0
+    for index, alien in pairs(customObjects) do
+        if alien.customObjectType == 'bigAlien' then
+            howManyAliens = howManyAliens + 1
+
+        end
+    end
+    return howManyAliens
 end
 
 function readyForLaunch()

@@ -21,6 +21,8 @@
         "readyForLaunch",
         "upDateGagalaAliensTrajectories",
         "collisionDetect",
-        "shipHit"
+        "shipHit",
+        "gameScore",
+        "shipLaunchable"
     ]
 }
