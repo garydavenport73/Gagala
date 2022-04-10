@@ -20,6 +20,7 @@ function love.load()
 end
 -- //////////////Testing placing object and removing///////////
 -- testcount = 0
+shipHit = false
 function love.update(dt)
     -- testcount=testcount+1
     -- if testcount==30 then
@@ -29,7 +30,7 @@ function love.update(dt)
 
     -- /////////////////////////////////////////////////////////////
 
-    ship:update(dt)
+
     -------TESTING/DEMONSTRATING dynamic making/destroying/tracking of customObjects
     -- alienRaid(2, 10, 3, 20)            --!comment this out to remove demonstration
     -- if collisionDetect(ship,shieldObj) then
@@ -51,16 +52,38 @@ function love.update(dt)
                end
            end
         end
+
+        if object1.customObjectType=="bigAlien" then
+            if shipHit==false then
+                if collisionDetect(object1,ship) then
+                    BasicExplosion:Create(object1.x,object1.y,5,0.05)
+                    object1.garbage=true
+                    shipHit=true
+                    ship = nil
+                end
+            end
+
+        end
     end
 
-    ship.weapon[1]:setOffScreenBulletsForRemoval()
+    if ship~=nil then
+        ship:update(dt)
+        ship.weapon[1]:setOffScreenBulletsForRemoval()
+    end
+
+ 
+
+
     upDateGagalaAliensTrajectories()
     updateCustomObjects(dt) -- required if using dynamic list, loops through all CustomObjects
     ---------------------------------
 end
 
 function love.draw()
-    ship:draw()
+    if ship~=nil then
+        ship:draw()
+    end
+
     drawCustomObjects() -- required if using dynamic list of CustomObjects, loops through all CustomObjects
 end
 
