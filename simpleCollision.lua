@@ -17,5 +17,6 @@ function collisionDetect(object1, object2, hitX_0to1, hitY_0to1)
         return true
     else
         return false
+        --;alksdjf;lkjasdf;flkjasdff
     end
 end
